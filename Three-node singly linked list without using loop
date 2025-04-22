@@ -1,0 +1,29 @@
+C++ Code:
+#include<iostream>
+using namespace std;
+struct Node 
+{
+    int data;
+    Node* next;
+};
+int main()
+{
+    // Creating new nodes for each
+    Node* head=new Node();
+    Node* second=new Node();
+    Node* third=new Node();
+    // assigning values to nodes and linking it
+    head->data=1;
+    head->next=second;
+    
+    second->data=2;
+    second->next=third;
+    
+    third->data=3;
+    third->next=nullptr;
+
+    cout<<head->data<<"->"<<second->data<<"->"<<third->data<<"->"<<"Null ptr"<<endl;
+}
+
+Output:
+1->2->3->Null ptr

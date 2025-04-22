@@ -1,0 +1,42 @@
+C++ Code:
+#include<iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node* next;
+};
+int main()
+{
+    // Creating nodes
+    Node* head=new Node();
+    Node* second=new Node();
+    Node* third=new Node();
+    Node* fourth=new Node();
+    // Linking nodes
+    head->data=10;
+    head->next=second;
+    second->data=20;
+    second->next=third;
+    third->data=30;
+    third->next=fourth;
+    fourth->data=40;
+    fourth->next=nullptr;
+    // deleting a node at front of the Linked list
+    if(head!=nullptr)
+    {
+        Node* temp=head;
+        head=head->next;
+        delete temp;
+    }
+    Node* curr_temp=head;
+    while(curr_temp!=nullptr)
+    {
+        cout<<curr_temp->data<<"->";
+        curr_temp=curr_temp->next;
+    }
+    cout<<"NULL"<<endl;
+}
+
+Output:
+20->30->40->NULL

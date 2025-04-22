@@ -1,0 +1,40 @@
+C++ Code:
+#include<iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node* next;
+};
+int main()
+{
+    // Creating nodes
+    Node* head=new Node();
+    Node* second=new Node();
+    Node* third=new Node();
+    Node* fourth=new Node();
+    // Linking nodes
+    head->data=10;
+    head->next=second;
+    second->data=20;
+    second->next=third;
+    third->data=30;
+    third->next=fourth;
+    fourth->data=40;
+    fourth->next=nullptr;
+    // Adding node at front of the Linked list
+    Node* fifth=new Node();
+    fifth->data=50;
+    fifth->next=head;
+    head=fifth;
+    Node* temp=head;
+    while(temp!=nullptr)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<"NULL"<<endl;
+}
+
+Output:
+50->10->20->30->40->NULL

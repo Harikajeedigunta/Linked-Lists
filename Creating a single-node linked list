@@ -1,0 +1,22 @@
+C++ Code:
+#include<iostream>
+using namespace std;
+struct Node 
+{
+    int data;
+    Node* next;
+};
+int main()
+{
+    // creating a node
+    Node* head=new Node();
+    // assigning value to head as it is starting point of linekd list
+    head->data=10;
+    // here i am creating only one node so after head it indicaes to null pointer
+    head->next=nullptr;
+    // printing the data in the head
+    cout<<"Node data :"<<head->data<<endl;
+}
+
+Output:
+Node data :10

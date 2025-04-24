@@ -1,0 +1,59 @@
+C++ Code:
+#include<iostream>
+using namespace std;
+// Node structure
+struct Node
+{
+    int data;
+    Node* next;
+};
+// Function to insert a node at the end
+void insertNodeAtEnd(Node*& head,int value)
+{
+    Node* newnode=new Node{value,nullptr};
+    if(head==NULL)
+    {
+        head=newnode;
+    }
+    else
+    {
+        Node* temp=head;
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+        }
+        temp->next=newnode;
+    }
+}
+// Function to display the linkedlist
+void displayList(Node* head)
+{
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<"NULL"<<endl;
+}
+int main()
+{
+    int n,val;
+    cin>>n;
+    // Initially the list is empty
+    Node* head=nullptr;
+    for(int i=0;i<n;i++)
+    {
+        cin>>val;
+        insertNodeAtEnd(head,val);
+    }
+    displayList(head);
+    return 0;
+}
+
+Input:
+5
+10 20 30 40 50
+
+Output:
+10->20->30->40->50->NULL

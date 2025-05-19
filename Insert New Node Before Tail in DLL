@@ -1,0 +1,109 @@
+C++ Code:
+#include<iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node* next;
+    Node* prev;
+};
+void insertNewNodeAtEnd(Node* &head,int value)
+{
+    Node* newnode=new Node{value,nullptr,nullptr};
+    if(head==NULL)
+    {
+        head=newnode;
+        return;
+    }
+    else
+    {
+        Node* temp=head;
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+        }
+        temp->next=newnode;
+        newnode->prev=temp;
+    }
+}
+void insertNewNodeBeforeTail(Node* &head,int value)
+{
+    Node* newnode=new Node{value,nullptr,nullptr};
+    if(head==NULL)
+    {
+        head=newnode;
+    }
+    if(head->next==NULL)
+    {
+        newnode->next=head;
+        head->prev=newnode;
+        head=newnode;
+        return;
+    }
+    Node* temp=head;
+    while(temp->next->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    Node* tail=temp->next;
+    newnode->next=tail;
+    newnode->prev=temp;
+    temp->next=newnode;
+    tail->prev=newnode;
+}
+void displayList(Node* head)
+{
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+       cout<<temp->data;
+       if(temp->next!=NULL)
+       {
+           cout<<"->";
+       }
+       temp=temp->next;
+    }
+    cout<<endl;
+}
+void displayRevList(Node* head)
+{
+    Node* temp=head;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    while(temp!=NULL)
+    {
+        cout<<temp->data;
+        if(temp->prev!=NULL)
+        {
+            cout<<"<-";
+        }
+        temp=temp->prev;
+    }
+    cout<<endl;
+}
+int main()
+{
+    int n,val;
+    cin>>n;
+    Node* head=nullptr;
+    for(int i=0;i<n;i++)
+    {
+        cin>>val;
+        insertNewNodeAtEnd(head,val);
+    }
+    cin>>val;
+    insertNewNodeBeforeTail(head,val);
+    displayList(head);
+    displayRevList(head);
+}
+
+Input:
+5
+1 2 3 4 5
+6
+
+Output:
+1->2->3->4->6->5
+5<-6<-4<-3<-2<-1

@@ -1,0 +1,58 @@
+C++ Code:
+#include<iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node* next;
+    Node(int val)
+    {
+        data=val;
+        next=nullptr;
+    }
+};
+Node* numToLinkedList(int num)
+{
+    if(num==0) return new Node(0);
+    Node* head=nullptr;
+    Node* tail=nullptr;
+    while(num>0)
+    {
+        int digit=num%10;
+        Node* newnode=new Node(digit);
+        if(!head)
+        {
+            head=tail=newnode;
+        }
+        else
+        {
+            newnode->next=head;
+            head=newnode;
+        }
+        num/=10;
+    }
+    return head;
+}
+void printList(Node* head)
+{
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<"nullptr"<<endl;
+}
+int main()
+{
+    int n;
+    cin>>n;
+    Node* l1=numToLinkedList(n);
+    printList(l1);
+}
+
+Input:
+123
+
+Output:
+1->2->3->nullptr

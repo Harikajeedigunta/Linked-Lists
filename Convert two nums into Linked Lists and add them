@@ -1,0 +1,93 @@
+C++ Code:
+#include<iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node* next;
+    Node(int val)
+    {
+        data=val;
+        next=nullptr;
+    }
+};
+Node* numToList(int num)
+{
+    if(num==0) return new Node(0);
+    Node* head=nullptr;
+    Node* tail=nullptr;
+    while(num>0)
+    {
+        int digit=num%10;
+        Node* newnode=new Node(digit);
+        if(!head)
+        {
+            head=tail=newnode;
+        }
+        else
+        {
+            tail->next=newnode;
+            tail=tail->next;
+        }
+        num/=10;
+    }
+    return head;
+}
+Node* addTwoNums(Node *num1,Node* num2)
+{
+    Node* dummyhead=new Node(-1);
+    Node* temp=dummyhead;
+    Node* temp1=num1;
+    Node* temp2=num2;
+    int carry=0;
+    while(temp1!=nullptr || temp2!=nullptr)
+    {
+        int sum=carry;
+        if(temp1)
+        {
+            sum+=temp1->data;
+        }
+        if(temp2)
+        {
+            sum+=temp2->data;
+        }
+        Node* newnode=new Node(sum%10);
+        carry=sum/10;
+        temp->next=newnode;
+        temp=temp->next;
+        if(temp1) temp1=temp1->next;
+        if(temp2) temp2=temp2->next;
+    }
+    if(carry)
+    {
+        Node* newnode=new Node(carry);
+        temp->next=newnode;
+    }
+    return dummyhead->next;
+}
+void printList(Node* head)
+{
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<"nullptr"<<endl;
+}
+int main()
+{
+    int num1,num2;
+    cin>>num1>>num2;
+    Node* l1=numToList(num1);
+    Node* l2=numToList(num2);
+    Node* result=addTwoNums(l1,l2);
+    printList(result);
+    return 0;
+}
+
+Input:
+123 124
+
+Output:
+7->4->2->nullptr

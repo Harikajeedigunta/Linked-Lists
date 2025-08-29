@@ -138,9 +138,24 @@ Node* sortList(Node* head)
         }
         temp=temp->next;
     }
-    zero->next=(onehead->next)? onehead->next:twohead->next;
-    one->next=twohead->next;
-    two->next=nullptr;
+    if(onehead->next!=NULL)
+    {
+        zerotail->next=onehead->next;
+    }
+    else
+    {
+        zerotail->next=twohead->next;
+    }
+    if(twohead->next!=NULL)
+    {
+        onetail->next=twohead->next;
+    }
+    else
+    {
+        onetail->next=NULL;
+    }
+    twotail->next=NULL;
+    Node* newhead=zerohead->next;
     Node* newhead=zerohead->next;
     delete zerohead;
     delete onehead;

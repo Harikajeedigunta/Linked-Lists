@@ -1,0 +1,111 @@
+C++ Code:
+In reverse order:
+#include<iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node* next;
+};
+void insertNewNodeAtEnd(Node* &head,int value)
+{
+    Node* newnode=new Node{value,nullptr};
+    if(head==NULL)
+    {
+        head=newnode;
+    }
+    else
+    {
+        Node* temp=head;
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+        }
+        temp->next=newnode;
+    }
+}
+long long ListToNum(Node* head)
+{
+    long long num=0;
+    int place=1;
+    Node* temp=head;
+    //To store digits in reverse order
+    while(temp!=NULL)
+    {
+        num+=temp->data*place;
+        place*=10;
+        temp=temp->next;
+    }
+    return num;
+}
+int main()
+{
+    int n,val;
+    cin>>n;
+    Node* head=nullptr;
+    for(int i=0;i<n;i++)
+    {
+        cin>>val;
+        insertNewNodeAtEnd(head,val);
+    }
+    cout<<ListToNum(head);
+}
+Input:
+3
+1 2 3
+Output:
+321
+
+In same order:
+#include<iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node* next;
+};
+void insertNewNodeAtEnd(Node* &head,int value)
+{
+    Node* newnode=new Node{value,nullptr};
+    if(head==NULL)
+    {
+        head=newnode;
+    }
+    else
+    {
+        Node* temp=head;
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+        }
+        temp->next=newnode;
+    }
+}
+long long ListToNum(Node* head)
+{
+    long long num=0;
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        num=num*10+temp->data;
+        temp=temp->next;
+    }
+    return num;
+}
+int main()
+{
+    int n,val;
+    cin>>n;
+    Node* head=nullptr;
+    for(int i=0;i<n;i++)
+    {
+        cin>>val;
+        insertNewNodeAtEnd(head,val);
+    }
+    cout<<ListToNum(head);
+}
+Input:
+3
+1 2 3
+Output:
+123

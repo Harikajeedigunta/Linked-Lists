@@ -1,39 +1,38 @@
 C++ Code:
+Method 1:Prints in Reverse order
 #include<iostream>
 using namespace std;
 struct Node
 {
     int data;
     Node* next;
-    Node(int val)
-    {
-        data=val;
-        next=nullptr;
-    }
 };
-Node* numToLinkedList(int num)
+Node* NumToList(long long num)
 {
-    if(num==0) return new Node(0);
+    if(num==0)
+    {
+        return new Node{0,nullptr};
+    }
     Node* head=nullptr;
     Node* tail=nullptr;
-    while(num>0)
+    while(num!=0)
     {
         int digit=num%10;
-        Node* newnode=new Node(digit);
-        if(!head)
+        Node* newnode=new Node{digit,nullptr};
+        if(head==nullptr)
         {
             head=tail=newnode;
         }
         else
         {
-            newnode->next=head;
-            head=newnode;
+            tail->next=newnode;
+            tail=newnode;
         }
         num/=10;
     }
     return head;
 }
-void printList(Node* head)
+void displayList(Node* head)
 {
     Node* temp=head;
     while(temp!=NULL)
@@ -47,12 +46,129 @@ int main()
 {
     int n;
     cin>>n;
-    Node* l1=numToLinkedList(n);
-    printList(l1);
+    Node* head=NumToList(n);
+    displayList(head);
 }
-
 Input:
 123
+Output:
+3->2->1->nullptr
 
+Method 2:Using String-->prints in same order
+#include<iostream>
+#include<string>
+using namespace std;
+struct Node
+{
+    int data;
+    Node* next;
+};
+Node* NumToList(long long num)
+{
+    if(num==0)
+    {
+        return new Node{0,nullptr};
+    }
+    Node* head=nullptr;
+    Node* tail=nullptr;
+    string s=to_string(num);
+    for(char ch:s)
+    {
+        int digit=ch-'0';
+        Node* newnode=new Node{digit,nullptr};
+        if(head==nullptr)
+        {
+            head=tail=newnode;
+        }
+        else
+        {
+            tail->next=newnode;
+            tail=newnode;
+        }
+    }
+    return head;
+}
+void displayList(Node* head)
+{
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<"nullptr"<<endl;
+}
+int main()
+{
+    int n;
+    cin>>n;
+    Node* head=NumToList(n);
+    displayList(head);
+}
+Input:
+123
+Output:
+123
+
+Method 3:Without using string-->prints in same order
+#include<iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node* next;
+};
+Node* NumToList(long long num)
+{
+    if(num==0)
+    {
+        return new Node{0,nullptr};
+    }
+    long long divisor=1;
+    while(num/divisor>=10)
+    {
+        divisor*=10;
+    }
+    Node* head=nullptr;
+    Node* tail=nullptr;
+    while(divisor>0)
+    {
+        int digit=num/divisor;
+        Node* newnode=new Node{digit,nullptr};
+        if(head==nullptr)
+        {
+            head=tail=newnode;
+        }
+        else
+        {
+            tail->next=newnode;
+            tail=newnode;
+        }
+        num %= divisor;      // remove the most significant digit
+        divisor /= 10;    
+    }
+    return head;
+}
+void displayList(Node* head)
+{
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<"nullptr"<<endl;
+}
+int main()
+{
+    int n;
+    cin>>n;
+    Node* head=NumToList(n);
+    displayList(head);
+}
+Input:
+123
 Output:
 1->2->3->nullptr
+
+

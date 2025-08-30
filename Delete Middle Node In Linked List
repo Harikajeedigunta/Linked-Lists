@@ -1,0 +1,167 @@
+C++ Code:
+Method1:Brute Force
+#include<iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node* next;
+};
+void insertNewNodeAtEnd(Node* &head,int value)
+{
+    Node* newnode=new Node{value,nullptr};
+    if(head==NULL)
+    {
+        head=newnode;
+    }
+    else
+    {
+        Node* temp=head;
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+        }
+        temp->next=newnode;
+    }
+}
+Node* deleteMidNodeOfList(Node* head)
+{
+    if(head==NULL)
+    {
+        return NULL;
+    }
+    if(head->next==NULL)
+    {
+        delete head;
+        head=NULL;
+        return NULL;
+    }
+    int cnt=0;
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        cnt++;
+        temp=temp->next;
+    }
+    int res=cnt/2;
+    temp=head;
+    for(int i=1;i<res;i++)
+    {
+        temp=temp->next;
+    }
+    Node* todel=temp->next;
+    temp->next=temp->next->next;
+    delete todel;
+    return head;
+}
+void displayList(Node* head)
+{
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<"nullptr"<<endl;
+}
+int main()
+{
+    int n,val;
+    cin>>n;
+    Node* head=nullptr;
+    for(int i=0;i<n;i++)
+    {
+        cin>>val;
+        insertNewNodeAtEnd(head,val);
+    }
+    head=deleteMidNodeOfList(head);
+    displayList(head);
+}
+
+Method2:Optimized
+#include<iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node* next;
+};
+void insertNewNodeAtEnd(Node* &head,int value)
+{
+    Node* newnode=new Node{value,nullptr};
+    if(head==NULL)
+    {
+        head=newnode;
+    }
+    else
+    {
+        Node* temp=head;
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+        }
+        temp->next=newnode;
+    }
+}
+Node* deleteMidNodeOfList(Node* head)
+{
+    if(head==NULL)
+    {
+        return NULL;
+    }
+    if(head->next==NULL)
+    {
+        delete head;
+        head=NULL;
+        return NULL;
+    }
+    Node* fastp=head;
+    Node* slowp=head;
+    Node* prev=NULL;
+    while(fastp!=NULL && fastp->next!=NULL)
+    {
+        fastp=fastp->next->next;
+        prev=slowp;
+        slowp=slowp->next;
+    }
+    prev->next=slowp->next;
+    delete slowp;
+    return head;
+}
+void displayList(Node* head)
+{
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<"nullptr"<<endl;
+}
+int main()
+{
+    int n,val;
+    cin>>n;
+    Node* head=nullptr;
+    for(int i=0;i<n;i++)
+    {
+        cin>>val;
+        insertNewNodeAtEnd(head,val);
+    }
+    head=deleteMidNodeOfList(head);
+    displayList(head);
+}
+
+Input1:
+6
+1 2 3 4 5 6
+
+Output1:
+1->2->3->5->6->nullptr
+
+Input2:
+5
+1 2 3 4 5
+
+Output2:
+1->2->4->5->nullptr

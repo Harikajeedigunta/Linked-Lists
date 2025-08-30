@@ -1,0 +1,129 @@
+C++ Code:
+Method 1:Brute Force
+#include<iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node* next;
+};
+void insertNewNodeAtEnd(Node* &head,int value)
+{
+    Node* newnode=new Node{value,nullptr};
+    if(head==NULL)
+    {
+        head=newnode;
+        return;
+    }
+    Node* temp=head;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    temp->next=newnode;
+}
+Node* middleNode(Node* head)
+{
+    Node* temp=head;
+    int cnt=0;
+    while(temp!=NULL)
+    {
+        cnt+=1;
+        temp=temp->next;
+    }
+    int mid=cnt/2;
+    temp=head;
+    for(int i=0;i<mid;i++)
+    {
+        temp=temp->next;
+    }
+    return temp;
+}
+int main()
+{
+    int n,val;
+    cin>>n;
+    Node* head=nullptr;
+    for(int i=0;i<n;i++)
+    {
+        cin>>val;
+        insertNewNodeAtEnd(head,val);
+    }
+    Node* midnode=middleNode(head);
+    if(midnode==NULL)
+    {
+        cout<<"nullptr"<<endl;
+    }
+    else
+    {
+        cout<<midnode->data<<endl;
+    }
+}
+
+Method 2:Optimized
+#include<iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node* next;
+};
+void insertNewNodeAtEnd(Node* &head,int value)
+{
+    Node* newnode=new Node{value,nullptr};
+    if(head==NULL)
+    {
+        head=newnode;
+    }
+    else
+    {
+        Node* temp=head;
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+        }
+        temp->next=newnode;
+    }
+}
+Node* middleNode(Node* head)
+{
+    if(head==NULL)
+    {
+        return head;
+    }
+    Node* fastp=head;
+    Node* slowp=head;
+    while(fastp!=NULL && fastp->next!=NULL)
+    {
+        fastp=fastp->next->next;
+        slowp=slowp->next;
+    }
+    return slowp;
+}
+int main()
+{
+    int n,val;
+    cin>>n;
+    Node* head=nullptr;
+    for(int i=0;i<n;i++)
+    {
+        cin>>val;
+        insertNewNodeAtEnd(head,val);
+    }
+    Node* midnode=middleNode(head);
+    cout<<midnode->data<<endl;
+}
+
+Input1:
+6
+1 2 3 4 5 6
+
+Output1:
+4
+
+Input2:
+5
+1 2 3 4 5 
+
+Output2:
+3

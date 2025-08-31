@@ -117,14 +117,8 @@ Node* reverseList(Node* head)
 }
 bool isPalindrome(Node* head)
 {
-    if(head==NULL)
-    {
-        return false;
-    }
-    if(head->next==NULL)
-    {
-        return true;
-    }
+    if(head==NULL) return false;
+    if(head->next==NULL) return true;
     Node* fastp=head;
     Node* slowp=head;
     while(fastp!=NULL && fastp->next!=NULL)
@@ -132,20 +126,24 @@ bool isPalindrome(Node* head)
         fastp=fastp->next->next;
         slowp=slowp->next;
     }
-    Node* newhead=reverseList(slowp->next);
+    if(fastp!=NULL)
+    {
+        slowp=slowp->next;
+    }
+    Node* newhead=reverseList(slowp);
     Node* first=head;
     Node* second=newhead;
     while(second!=NULL)
     {
         if(first->data!=second->data)
         {
-            slowp->next=reverseList(newhead);
+            reverseList(newhead);
             return false;
         }
         first=first->next;
         second=second->next;
     }
-    slowp->next=reverseList(newhead);
+    reverseList(newhead);
     return true;
 }
 int main()
@@ -168,7 +166,6 @@ int main()
         cout<<"Not Palindrome"<<endl;
     }
 }
-
 Input:
 5
 3 7 5 7 3
